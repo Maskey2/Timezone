@@ -1,16 +1,11 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nep-Uni-Aus</title>
 </head>
-
 <body>
-  <div>
-
-  </div>
   <div>
     <p id="Nep" style="color: rgb(99, 16, 16);"></p>
     <p id="USA" style="color:rgb(8, 8, 59);"></p>
@@ -20,46 +15,52 @@
   <form onsubmit="return checkTime()">
     <label for="meeting-time" id="title">Let's plan this thang!!</label><br><br>
     <input type="datetime-local" id="meeting-time" name="meeting-time" value="2023-10-18T10:05" min="2023-10-07T00:00"
-      max="2024-04-14T00:00" />
-      <br>  <br>
+      max="2024-04-14T00:00" id="datePicker" />
+    <br> <br>
     <button type="submit">Check yo time</button>
   </form>
-
   <div>
-    <p id="US" style="color: rgb(8, 8, 59);"></p><p id="uhrs" style="color: rgb(99, 16, 16);"></p>
-    <p id="NP" style="color: rgb(99, 16, 16);"></p><p id="nhrs" style="color: rgb(99, 16, 16);"></p>
-    <p id="AU" style="color: rgb(9, 90, 9);"></p><p id="ahrs" style="color: rgb(99, 16, 16);"></p>
+    <p id="US" style="color: rgb(8, 8, 59);"></p>
+    <p id="uhrs" style="color: rgb(99, 16, 16);"></p>
+    <p id="NP" style="color: rgb(99, 16, 16);"></p>
+    <p id="nhrs" style="color: rgb(99, 16, 16);"></p>
+    <p id="AU" style="color: rgb(9, 90, 9);"></p>
+    <p id="ahrs" style="color: rgb(99, 16, 16);"></p>
   </div>
   <script>
-
     let nepalDate = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' });
     document.getElementById("Nep").innerHTML = "Nepal's date: " + nepalDate;
 
     let USDate = new Date().toLocaleString();
-    document.getElementById("USA").innerHTML = "USA's date: " + USDate;    
+    document.getElementById("USA").innerHTML = "USA's date: " + USDate;
 
     let ausDate = new Date().toLocaleString('en-US', { timeZone: 'Australia/Sydney' });
     document.getElementById("Aus").innerHTML = "Australia's date: " + ausDate;
 
-
     function checkTime() {
       var userDate = document.querySelector('input[type="datetime-local"]').value;
       userDate = new Date(userDate).toLocaleString();
-      document.getElementById("US").innerHTML = "USA's date: "+ userDate;
+      document.getElementById("US").innerHTML = "USA's date: " + userDate;
 
       let getHrs = new Date(userDate).getHours();
-      if (getHrs  >= 8 || getHrs <= 20) {
-        document.getElementById("uhrs").innerHTML = "Works! " 
-      } else {
-         document.getElementById("uhrs").innerHTML = "No No No " 
+      let getDay = new Date(userDate).getDay();
+      if (getDay == 6 || getDay == 7) {
+        if (getHrs >= 7 || getHrs <= 23) {
+          document.getElementById("uhrs").innerHTML = "✔️ 👍 "
+        } else {
+          document.getElementById("uhrs").innerHTML = "❌ 👎"
+        }
       }
-      console.log('USA',getHrs);
-
+      else {
+        if (getHrs >= 8 && getHrs <= 22) {
+          document.getElementById("uhrs").innerHTML = "✔️ 👍 "
+        } else {
+          document.getElementById("uhrs").innerHTML = "❌ 👎"
+        }
+      }
       event.preventDefault();
       checkNP(userDate);
       checkAU(userDate);
-      
-
       return false;
     }
     function checkNP(userDate) {
@@ -68,87 +69,88 @@
       document.getElementById("NP").innerHTML = "Nepal's date: " + nepTime;
 
       let getHrs = new Date(nepTime).getHours();
-      if (getHrs >= 8 && getHrs <= 20) {
-        document.getElementById("nhrs").innerHTML = "Works!" 
+      if (getHrs >= 9 && getHrs <= 22) {
+        document.getElementById("nhrs").innerHTML = "✔️ 👍 "
       } else {
-        document.getElementById("nhrs").innerHTML = "No No No " 
+        document.getElementById("nhrs").innerHTML = "❌ 👎"
       }
-      console.log('Nepals',getHrs);
     }
-
     function checkAU(userDate) {
       let ausTime = userDate;
       ausTime = new Date(ausTime).toLocaleString('en-US', { timeZone: 'Australia/Sydney' });
       document.getElementById("AU").innerHTML = "Australia's date: " + ausTime;
 
       let getHrs = new Date(ausTime).getHours();
-      if (getHrs  >= 8 && getHrs <= 20) {
-        document.getElementById("ahrs").innerHTML = "Works! " 
+      if (getHrs >= 8 && getHrs <= 23) {
+        document.getElementById("ahrs").innerHTML = "✔️ 👍 "
       } else {
-         document.getElementById("ahrs").innerHTML = "No No No " 
+        document.getElementById("ahrs").innerHTML = "❌ 👎"
       }
-      console.log('Aus',getHrs);
-    
     }
-
-
   </script>
 </body>
 </html>
 
 <style>
   body {
-    background-color: red; /* For browsers that do not support gradients */
-  background-image: linear-gradient(to right, rgb(129, 211, 177), rgb(163, 157, 168), rgb(119, 158, 142));
+    background-color: red;
+    /* For browsers that do not support gradients */
+    background-image: linear-gradient(to right, rgb(129, 211, 177), rgb(163, 157, 168), rgb(119, 158, 142));
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: auto; 
+    margin: auto;
     padding: 50px;
-    height: 100vh;   
+    height: 100vh;
     align-items: center;
     justify-content: center;
     text-align: center;
     font-size: 20px;
   }
-  input[type="datetime-local"]{
+
+  input[type="datetime-local"] {
     background-color: #2f7972;
     padding: 15px;
-    
-    font-family: "Roboto Mono",monospace;
+
+    font-family: "Roboto Mono", monospace;
     color: #ffffff;
     border: none;
     outline: none;
     border-radius: 15px;
-}
-::-webkit-calendar-picker-indicator{
+  }
+
+  ::-webkit-calendar-picker-indicator {
     background-color: #ffffff;
     padding: 5px;
     cursor: pointer;
     border-radius: 3px;
-}
-button{
-  background-color: #1c4d48;
+  }
+
+  button {
+    background-color: #1c4d48;
     padding: 15px;
     color: #ffffff;
     border: none;
     outline: none;
     border-radius: 15px;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
     width: 10%;
-}
-button:hover{
-  background-color: #133a36;
-  box-shadow: 4px -3px 5px #3e4948;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease-in-out;
-}
-#title{
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 45px;
-}
-@media only screen and (max-width: 600px) {
-  button{
-    width: 60%;
-}
-}
+  }
+
+  button:hover {
+    background-color: #133a36;
+    box-shadow: 4px -3px 5px #3e4948;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  #title {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 45px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    button {
+      width: 60%;
+    }
+  }
 </style>
