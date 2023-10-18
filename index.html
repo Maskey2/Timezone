@@ -35,7 +35,7 @@
       let nepalDate = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' });
       document.getElementById("Nep").innerHTML = "Nepal's date: " + nepalDate;
 
-      let USDate = new Date().toLocaleString();
+      let USDate = new Date().toLocaleString('en-US', { timeZone: "America/New_York" })
       document.getElementById("USA").innerHTML = "USA's date: " + USDate;
 
       let ausDate = new Date().toLocaleString('en-US', { timeZone: 'Australia/Sydney' });
