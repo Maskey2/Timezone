@@ -38,6 +38,7 @@
     let ausDate = new Date().toLocaleString('en-US', { timeZone: 'Australia/Sydney' });
     document.getElementById("Aus").innerHTML = "Australia's date: " + ausDate;
 
+
     function checkTime() {
       var userDate = document.querySelector('input[type="datetime-local"]').value;
       userDate = new Date(userDate).toLocaleString();
@@ -154,8 +155,8 @@
     font-size: 25px;
   }
   body {
-    padding: 20px;
-    font-size: 18px;
+    padding: 18px;
+    font-size: 16px;
   }
   input[type="datetime-local"] {
     padding: 20px;   
